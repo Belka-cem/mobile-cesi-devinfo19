@@ -1,4 +1,4 @@
-package com.tp;
+package com.bsi.tp;
 
 import com.facebook.react.ReactActivity;
 
