@@ -22,7 +22,7 @@ Dans un terminal different npm run android
 ```bash
 npm start
 ```
-## Technologie utilisée
+## Technologies utilisées
 
   * React native
   * NodeJs/ Express
