@@ -21,6 +21,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Home from './src/components/home';
 import Login from './src/components/login';
+import SERVER from './src/url';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -30,12 +31,13 @@ class App extends React.Component {
     hasUser: false,
     notUser: false,
     email: "",
-    mdp: ""
+    mdp: "", 
+    id : 0
   }
 
   valEmail(val: string){
     this.setState({email :val })
-  }
+  } 
 
   valMdp(val: string){
     this.setState({mdp :val })
@@ -49,7 +51,7 @@ class App extends React.Component {
 
     if(email && mdp ){
   
-        const res = await fetch("http://10.113.129.1:3000/signin", {
+        const res = await fetch(`${SERVER}/signin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -60,13 +62,23 @@ class App extends React.Component {
 
         if(res.status === 200){
           console.log("user connected");
-            this.setState({hasUser: JSON.parse(user.hasUser)})
+          console.log(user);
+          
+            this.setState(() => {
+              return {hasUser: JSON.parse(user.hasUser)}
+            })
+            this.setState(()=> {
+              return {id: JSON.parse(user.id)} 
+            })
+            this.setState(()=>{
+              return {notUser: false}
+            })
+            console.log("state", this.state);
+            
         }else{
           this.setState({notUser: true})
         }
- 
-    }
-
+    }  
   }
 
   render(){
@@ -81,7 +93,7 @@ class App extends React.Component {
                                       </Login>}
 
       {this.state.notUser === true && <Text style={styles.error}>Information incorrect</Text>}
-      {this.state.hasUser === true && <Home></Home> }
+      {this.state.hasUser === true && <Home id={this.state.id}></Home> }
       </>
     )
   }

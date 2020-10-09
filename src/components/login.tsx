@@ -32,7 +32,7 @@ export default class Login extends React.Component<PropsLogin>{
                          value={mdp} 
                          autoCompleteType="password">
                </TextInput>
-              <TouchableHighlight style={styles.button}  onPress={(email: string, mdp: string)=>{this.props.login(email, mdp)}} >
+              <TouchableHighlight style={styles.button}  onPressOut={(email: string, mdp: string)=>{this.props.login(email, mdp)}} >
                   <Text style={styles.textBtn}>Connexion</Text>
               </TouchableHighlight>
             </View>
